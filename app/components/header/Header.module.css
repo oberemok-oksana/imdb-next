@@ -7,4 +7,26 @@
   justify-content: space-between;
   align-items: center;
   color: #fff;
+  font-size: 18px;
+}
+
+.list {
+  list-style-type: none;
+  display: flex;
+  gap: 30px;
+}
+
+.link {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link:hover {
+  color: #fa97b4;
+  transition: all 0.3s ease;
+}
+
+.link:active {
+  color: #e06288;
+  transition: all 0.3s ease;
 }

@@ -8,20 +8,30 @@ const Header = () => {
         <input type="text" placeholder="Search" />
         <button type="submit">Search</button>
       </form>
-      <ul>
-        <li>
-          <a href="#">Top 20</a>
-        </li>
-        <li>
-          <a href="#">Watching List</a>
-        </li>
-        <li>
-          <a href="#">Watch again</a>
-        </li>
-        <li>
-          <a href="#">Log in</a>
-        </li>
-      </ul>
+      <nav>
+        <ul className={styles.list}>
+          <li>
+            <a className={styles.link} href="#">
+              Top 20
+            </a>
+          </li>
+          <li>
+            <a className={styles.link} href="#">
+              Watching List
+            </a>
+          </li>
+          <li>
+            <a className={styles.link} href="#">
+              Watch again
+            </a>
+          </li>
+          <li>
+            <a className={styles.link} href="#">
+              Log in
+            </a>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };
