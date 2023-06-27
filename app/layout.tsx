@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Chakra_Petch } from "next/font/google";
 import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 const chakra = Chakra_Petch({
   weight: ["400", "700"],
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Header />
           <div className="container"> {children}</div>
         </div>
+        <Footer />
       </body>
     </html>
   );
