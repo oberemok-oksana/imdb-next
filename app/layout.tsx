@@ -22,11 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={chakra.className}>
-        <div className="bg">
-          <Header />
-          <div className="container"> {children}</div>
-        </div>
+      <body className={`${chakra.className} bg`}>
+        <Header />
+        <div className="container"> {children}</div>
         <Footer />
       </body>
     </html>
