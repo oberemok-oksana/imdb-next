@@ -21,7 +21,6 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div>2023</div>
     </footer>
   );
 };
