@@ -15,7 +15,7 @@ const Header = () => {
       <nav>
         <ul className={styles.list}>
           <li>
-            <a className={styles.link} href="#">
+            <a className={styles.link} href="/top-20">
               Top 20
             </a>
           </li>
