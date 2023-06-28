@@ -4,7 +4,7 @@ import styles from "./TopMovies.module.css";
 
 const getTopMovies = async (): Promise<MovieType[]> => {
   const key =
-    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwOTFhODUwNzc4ZDQ3NDQwZWE4ZDdkMzcwZDE4ZWY3ZCIsInN1YiI6IjYwOWU2OGI0ODA3Mjk4MDAyOWE1MGI5NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OqrIkg4c05pE8Z8TJYe0uwcyezvPW4CeUY2_uF0bOzo";
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZWZlNzUyN2ZmM2EzZmFjOGE2MTAzMzAxMzU3MjE2OSIsInN1YiI6IjYwOWU2OGI0ODA3Mjk4MDAyOWE1MGI5NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Xbowz5LfSHTk6wVl3Mk8ixotglAi_tNU9rAzz0qk3gk";
   const result = await fetch("https://api.themoviedb.org/3/tv/top_rated", {
     headers: {
       Authorization: `Bearer ${key}`,
