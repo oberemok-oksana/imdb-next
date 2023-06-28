@@ -2,3 +2,12 @@
   margin: 0 auto;
   text-align: center;
 }
+
+.wrapper {
+  display: flex;
+  gap: 45px;
+}
+
+.list {
+  list-style: none;
+}
