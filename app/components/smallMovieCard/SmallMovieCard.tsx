@@ -1,6 +1,7 @@
 import { MovieType } from "@/app/types";
 import styles from "./SmallMovieCard.module.css";
 import Image from "next/image";
+import Link from "next/link";
 
 type SmallMovieCardPropsType = {
   movie: MovieType;
@@ -13,20 +14,22 @@ const SmallMovieCard = ({ movie }: SmallMovieCardPropsType) => {
       : movie.overview;
 
   return (
-    <div className={styles.card}>
-      <div>
-        <Image
-          width="70"
-          height="80"
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.name}
-        />
+    <Link href={`/movies/${movie.id}`}>
+      <div className={styles.card}>
+        <div>
+          <Image
+            width="70"
+            height="80"
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.name}
+          />
+        </div>
+        <div className={styles.descriptions}>
+          <h3>{movie.name}</h3>
+          <p>{alteredOverview}</p>
+        </div>
       </div>
-      <div className={styles.descriptions}>
-        <h3>{movie.name}</h3>
-        <p>{alteredOverview}</p>
-      </div>
-    </div>
+    </Link>
   );
 };
 
