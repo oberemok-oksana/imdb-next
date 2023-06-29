@@ -50,7 +50,7 @@ const Slideshow = ({ data }: SliderPropsType) => {
               style={{ width: "100%" }}
               src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
             />
-            <h2>{movie.name}</h2>
+            <h2>{movie.title}</h2>
             <p>{movie.overview}</p>
           </div>
         ))}

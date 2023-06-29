@@ -21,11 +21,11 @@ const SmallMovieCard = ({ movie }: SmallMovieCardPropsType) => {
             width="70"
             height="80"
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.name}
+            alt={movie.title}
           />
         </div>
         <div className={styles.descriptions}>
-          <h3>{movie.name}</h3>
+          <h3>{movie.title}</h3>
           <p>{alteredOverview}</p>
         </div>
       </div>

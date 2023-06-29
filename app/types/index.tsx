@@ -3,7 +3,7 @@ export type MovieType = {
   first_air_date: string;
   genre_ids: number[];
   id: number;
-  name: string;
+  title: string;
   origin_country: string[];
   original_language: string;
   original_name: string;
