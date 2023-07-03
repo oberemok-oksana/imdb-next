@@ -71,3 +71,9 @@ export type FoundByIdType = {
   vote_average: number;
   vote_count: number;
 };
+
+export type FoundMoviesPropsType = {
+  searchParams: {
+    query: string | number | undefined;
+  };
+};
