@@ -24,6 +24,9 @@ const Movie = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const data = await findMovieById(id);
   console.log(data);
+  const src = data.backdrop_path
+    ? `https://image.tmdb.org/t/p/w500${data.backdrop_path}`
+    : "/images/poster_default.jpg";
 
   return (
     <div>
@@ -33,7 +36,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
       <div className={styles.wrapper}>
         <Image
           className={styles.image}
-          src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
+          src={src}
           alt={data.title}
           width="500"
           height="350"
