@@ -3,7 +3,13 @@
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  width: 700px;
+  width: 750px;
+}
+
+.parts {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .button {
