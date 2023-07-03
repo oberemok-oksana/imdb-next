@@ -1,9 +1,11 @@
 export type MovieType = {
   backdrop_path: string;
   first_air_date: string;
+  release_date: string;
   genre_ids: number[];
   id: number;
   title: string;
+  name: string;
   origin_country: string[];
   original_language: string;
   original_name: string;
