@@ -29,3 +29,50 @@ a {
   width: 960px;
   margin: 15px auto;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 250px;
+  margin-top: 15px;
+  /* margin: 15px auto; */
+}
+
+.input {
+  padding: 13px;
+  border-radius: 4px;
+}
+
+.submit {
+  letter-spacing: 5px;
+  padding: 13px;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.submit:hover {
+  background-color: #e06288;
+  transition: all 0.4s ease;
+}
+
+.submit:active {
+  color: #fff;
+  transition: all 0.4s ease;
+}
+
+.text {
+  margin: 10px 0;
+}
+
+.link {
+  font-weight: 600;
+  color: rgb(143, 133, 133);
+}
+
+.link:hover {
+  color: #e06288;
+}
