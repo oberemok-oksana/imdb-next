@@ -1,8 +1,12 @@
 "use client";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { getToken } from "../api";
+import { useEffect, useState } from "react";
 
-const SignUp = () => {
+const SignUp = async () => {
+  const [token, setToken] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -16,9 +20,14 @@ const SignUp = () => {
       phone: "",
     },
   });
+
+  useEffect(() => {
+    getToken().then((token) => setToken(token));
+  }, []);
+
   return (
     <>
-      <h1>Sign In</h1>
+      <h1>Sign Up</h1>
 
       <form
         className="form"
@@ -90,3 +99,9 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+// {
+//   "success": true,
+//   "expires_at": "2023-07-05 11:14:52 UTC",
+//   "request_token": "023cd3c36b88fbfdca206dd757e8d3d188b49365"
+// }
