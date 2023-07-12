@@ -1,11 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import { useSearchParams } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 const Header = () => {
   const searchParams = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("query") || "");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const supabase = createClientComponentClient<Database>();
+
+  useEffect(() => {
+    supabase.auth.getUser().then((res) => setIsLoggedIn(!!res.data.user?.role));
+  });
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -47,9 +55,16 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <a className={styles.link} href="/log-in">
-              Log in
-            </a>
+            {!isLoggedIn && (
+              <a className={styles.link} href="/log-in">
+                Log in
+              </a>
+            )}
+            {isLoggedIn && (
+              <a href="#" className={styles.link}>
+                Log out
+              </a>
+            )}
           </li>
         </ul>
       </nav>
