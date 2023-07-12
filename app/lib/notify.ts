@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
 
-export const notify = () =>
-  toast.success("🦄 Wow so easy!", {
+export const notify = (text: string) =>
+  toast.success(`🦄 ${text}!`, {
     position: "top-center",
-    autoClose: 1000,
+    autoClose: 1500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
