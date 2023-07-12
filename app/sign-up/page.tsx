@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { addUser } from "../actions";
-import { toast } from "react-toastify";
+import { notify, notifyError } from "../lib/notify";
 
 const SignUp = () => {
   const {
@@ -19,30 +19,6 @@ const SignUp = () => {
       phone: "",
     },
   });
-
-  const notify = () =>
-    toast.success("🦄 Wow so easy!", {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-
-  const notifyError = (err: String) =>
-    toast.error(`🦄 ${err}`, {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
 
   return (
     <>
