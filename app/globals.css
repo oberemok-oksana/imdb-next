@@ -76,3 +76,7 @@ a {
 .link:hover {
   color: #e06288;
 }
+
+.invalid {
+  border: 2px solid red;
+}
