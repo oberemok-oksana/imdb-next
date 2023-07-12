@@ -3,6 +3,9 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { addUser } from "../actions";
 import { notify, notifyError } from "../lib/notify";
+import { useRouter } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 const SignUp = () => {
   const {
@@ -19,6 +22,19 @@ const SignUp = () => {
       phone: "",
     },
   });
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+  const handleSignUp = async (email: string, password: string) => {
+    await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    router.refresh();
+  };
 
   return (
     <>
@@ -26,10 +42,10 @@ const SignUp = () => {
       <form
         className="form"
         onSubmit={handleSubmit(async (data) => {
-          addUser(data)
+          handleSignUp(data.email, data.password)
             .then(() => {
               reset();
-              notify();
+              notify("Congrats! You'll receive a confirmation letter soon!");
             })
             .catch((err) =>
               notifyError(`${err.message.slice(-8, -1)} already exists`)
