@@ -1,27 +1,50 @@
 "use client";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { loginUser } from "../actions";
+import { notify, notifyError } from "../lib/notify";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 const LogIn = () => {
   const {
     register,
+    reset,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
       email: "",
       password: "",
-      firstName: "",
-      lastName: "",
-      phone: "",
     },
   });
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+  const handleLogIn = async (email: string, password: string) => {
+    const user = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (user.data.user?.role) {
+      reset();
+      router.push("/");
+    } else {
+      notifyError("The wrong password");
+    }
+  };
   return (
     <>
       <h1>Login</h1>
       <form
         className="form"
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit((data) =>
+          handleLogIn(data.email, data.password)
+        )}
       >
         <input
           className="input"
