@@ -32,7 +32,6 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <h1>Popular today!</h1>
-
       <div className={styles.wrapper}>
         <Slideshow data={data} />
         <ul className={styles.list}>
