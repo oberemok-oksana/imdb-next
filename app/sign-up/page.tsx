@@ -1,14 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { getToken } from "../api";
-import { useEffect, useState } from "react";
+import { addUser } from "../actions";
+import { toast } from "react-toastify";
 
-const SignUp = async () => {
-  const [token, setToken] = useState("");
-
+const SignUp = () => {
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -21,17 +20,45 @@ const SignUp = async () => {
     },
   });
 
-  useEffect(() => {
-    getToken().then((token) => setToken(token));
-  }, []);
+  const notify = () =>
+    toast.success("🦄 Wow so easy!", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+  const notifyError = (err: String) =>
+    toast.error(`🦄 ${err}`, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
   return (
     <>
       <h1>Sign Up</h1>
-
       <form
         className="form"
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit(async (data) => {
+          addUser(data)
+            .then(() => {
+              reset();
+              notify();
+            })
+            .catch((err) =>
+              notifyError(`${err.message.slice(-8, -1)} already exists`)
+            );
+        })}
       >
         <input
           className="input"
@@ -99,9 +126,3 @@ const SignUp = async () => {
 };
 
 export default SignUp;
-
-// {
-//   "success": true,
-//   "expires_at": "2023-07-05 11:14:52 UTC",
-//   "request_token": "023cd3c36b88fbfdca206dd757e8d3d188b49365"
-// }
