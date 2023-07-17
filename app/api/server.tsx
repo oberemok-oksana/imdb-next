@@ -29,3 +29,27 @@ export const addToWatchList = async (data: FoundByIdType) => {
     });
   }
 };
+
+export const addToFavouriteMovies = async (data: FoundByIdType) => {
+  "use server";
+
+  const supabase = createServerComponentClient({ cookies });
+  const prisma = new PrismaClient();
+  const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+
+  if (userId) {
+    const favMovie = await prisma.favouriteMovies.create({
+      data: {
+        name: data.title,
+        genres: data.genres.map((genre) => genre.name),
+        description: data.overview,
+        releaseDate: data.release_date,
+        runtime: data.runtime,
+        imageUrl: data.backdrop_path,
+        userId: userId,
+        voteAverage: Math.trunc(data.vote_average),
+        imdbId: data.imdb_id,
+      },
+    });
+  }
+};
