@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { addUser } from "../actions";
 import { notify, notifyError } from "../lib/notify";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
