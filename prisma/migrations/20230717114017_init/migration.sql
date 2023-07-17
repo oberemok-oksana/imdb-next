@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "WatchingList" ALTER COLUMN "voteAverage" SET DATA TYPE DOUBLE PRECISION;
