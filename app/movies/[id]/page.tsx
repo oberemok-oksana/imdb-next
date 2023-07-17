@@ -2,6 +2,7 @@ import { FoundByIdType } from "@/app/types";
 import Image from "next/image";
 import styles from "./Movie.module.css";
 import Link from "next/link";
+import AddToWatchList from "@/app/components/AddToWatchList";
 
 const findMovieById = async (id: string): Promise<FoundByIdType> => {
   const result = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
@@ -23,7 +24,9 @@ const findMovieById = async (id: string): Promise<FoundByIdType> => {
 const Movie = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const data = await findMovieById(id);
+
   console.log(data);
+
   const src = data.backdrop_path
     ? `https://image.tmdb.org/t/p/w500${data.backdrop_path}`
     : "/images/poster_default.jpg";
@@ -89,7 +92,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       <div className={styles.buttons}>
-        <button className={styles.button}>Add to Watch List</button>
+        <AddToWatchList data={data} />
         <button className={styles.button}>Already Watched</button>
         <Link href="/" className={styles.button}>
           Back Home
