@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./Movie.module.css";
 import Link from "next/link";
 import AddToWatchList from "@/app/components/AddToWatchList";
+import AddToFavouriteMovies from "@/app/components/AddToFavouriteMovies/AddToFavouriteMovies";
 
 const findMovieById = async (id: string): Promise<FoundByIdType> => {
   const result = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
@@ -93,7 +94,7 @@ const Movie = async ({ params }: { params: { id: string } }) => {
       </div>
       <div className={styles.buttons}>
         <AddToWatchList data={data} />
-        <button className={styles.button}>Already Watched</button>
+        <AddToFavouriteMovies data={data} />
         <Link href="/" className={styles.button}>
           Back Home
         </Link>
