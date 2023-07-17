@@ -33,3 +33,17 @@ model WatchingList {
   imageUrl    String
   createdAt   DateTime @default(now())
 }
+
+model FavouriteMovies {
+  id          Int      @id @default(autoincrement())
+  imdbId      String
+  userId      String
+  name        String
+  releaseDate String
+  runtime     Int
+  voteAverage Float
+  genres      String[]
+  description String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+}
