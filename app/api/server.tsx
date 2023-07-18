@@ -4,6 +4,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FoundByIdType } from "../types";
 import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const addToWatchList = async (data: FoundByIdType) => {
   "use server";
@@ -52,4 +54,39 @@ export const addToFavouriteMovies = async (data: FoundByIdType) => {
       },
     });
   }
+};
+
+export const getFavouriteMovies = async () => {
+  "use server";
+
+  const prisma = new PrismaClient();
+  const supabase = createServerComponentClient({ cookies });
+  const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+  if (!userId) {
+    redirect("/");
+  }
+
+  const favMovies = await prisma.favouriteMovies.findMany({
+    where: {
+      userId,
+    },
+  });
+  return favMovies;
+};
+
+export const deleteMovie = async (id: number) => {
+  "use server";
+
+  const prisma = new PrismaClient();
+  const supabase = createServerComponentClient({ cookies });
+  const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+
+  await prisma.favouriteMovies.deleteMany({
+    where: {
+      userId,
+      id,
+    },
+  });
+
+  revalidatePath("/favourite-movies");
 };
