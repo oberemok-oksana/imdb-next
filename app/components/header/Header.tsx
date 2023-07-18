@@ -52,8 +52,8 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <a className={styles.link} href="#">
-              Watch again
+            <a className={styles.link} href="/favourite-movies">
+              Favourite Movies
             </a>
           </li>
           <li>
