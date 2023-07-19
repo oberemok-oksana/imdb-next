@@ -77,3 +77,14 @@ export type FoundMoviesPropsType = {
     query: string | number | undefined;
   };
 };
+
+export type ListMovieType = {
+  name: string;
+  genres: string[];
+  description: string;
+  releaseDate: string;
+  runtime: number;
+  imageUrl: string;
+  voteAverage: number;
+  imdbId: number | string;
+};
