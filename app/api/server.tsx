@@ -24,6 +24,7 @@ export const addToWatchList = async (data: FoundByIdType) => {
         releaseDate: data.release_date,
         runtime: data.runtime,
         imageUrl: data.backdrop_path,
+        posterUrl: data.poster_path,
         userId: userId,
         voteAverage: Math.trunc(data.vote_average),
         imdbId: data.imdb_id,
@@ -54,6 +55,26 @@ export const addToFavouriteMovies = async (data: FoundByIdType) => {
       },
     });
   }
+};
+
+export const getWatchingList = async () => {
+  "use server";
+
+  const prisma = new PrismaClient();
+  const supabase = createServerComponentClient({ cookies });
+  const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+
+  if (!userId) {
+    redirect("/");
+  }
+
+  const watchingList = await prisma.watchingList.findMany({
+    where: {
+      userId,
+    },
+  });
+
+  return watchingList;
 };
 
 export const getFavouriteMovies = async () => {
