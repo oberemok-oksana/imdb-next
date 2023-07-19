@@ -47,7 +47,7 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <a className={styles.link} href="#">
+            <a className={styles.link} href="/watching-list">
               Watching List
             </a>
           </li>
