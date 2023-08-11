@@ -5,12 +5,12 @@ import { addToWatchList } from "../api/server";
 import styles from "../movies/[id]/Movie.module.css";
 
 type AddToWatchListProps = {
-  data: FoundByIdType;
+  id: string;
 };
 
-const AddToWatchList = ({ data }: AddToWatchListProps) => {
+const AddToWatchList = ({ id }: AddToWatchListProps) => {
   return (
-    <button className={styles.button} onClick={() => addToWatchList(data)}>
+    <button className={styles.button} onClick={() => addToWatchList(id)}>
       Add to Watch List
     </button>
   );

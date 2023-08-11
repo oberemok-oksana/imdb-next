@@ -3,18 +3,21 @@
 import { addToFavouriteMovies } from "@/app/api/server";
 import styles from "../../movies/[id]/Movie.module.css";
 import { FoundByIdType } from "@/app/types";
+import Image from "next/image";
 
 type AddToFavouriteMoviesProps = {
-  data: FoundByIdType;
+  id: string;
 };
 
-const AddToFavouriteMovies = ({ data }: AddToFavouriteMoviesProps) => {
+const AddToFavouriteMovies = ({ id }: AddToFavouriteMoviesProps) => {
   return (
-    <button
-      onClick={() => addToFavouriteMovies(data)}
-      className={styles.button}
-    >
-      Favourite Movies
+    <button onClick={() => addToFavouriteMovies(id)} className={styles.button}>
+      <Image
+        src="/images/icons8-heart-40.png"
+        alt="heart"
+        width="30"
+        height="30"
+      />
     </button>
   );
 };

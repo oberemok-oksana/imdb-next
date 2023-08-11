@@ -3,24 +3,8 @@ import Image from "next/image";
 import styles from "./Movie.module.css";
 import Link from "next/link";
 import AddToWatchList from "@/app/components/AddToWatchList";
-import AddToFavouriteMovies from "@/app/components/AddToFavouriteMovies/AddToFavouriteMovies";
-
-const findMovieById = async (id: string): Promise<FoundByIdType> => {
-  const result = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
-    headers: {
-      Accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZWZlNzUyN2ZmM2EzZmFjOGE2MTAzMzAxMzU3MjE2OSIsInN1YiI6IjYwOWU2OGI0ODA3Mjk4MDAyOWE1MGI5NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Xbowz5LfSHTk6wVl3Mk8ixotglAi_tNU9rAzz0qk3gk",
-    },
-  });
-
-  if (!result.ok) {
-    throw new Error(result.statusText);
-  }
-
-  const data = await result.json();
-  return data;
-};
+import AddToFavouriteMovies from "@/app/components/addToFavouriteMovies/AddToFavouriteMovies";
+import { findMovieById } from "@/app/api/server";
 
 const Movie = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -93,8 +77,8 @@ const Movie = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       <div className={styles.buttons}>
-        <AddToWatchList data={data} />
-        <AddToFavouriteMovies data={data} />
+        <AddToWatchList id={data.id.toString()} />
+        <AddToFavouriteMovies id={data.id} />
         <Link href="/" className={styles.button}>
           Back Home
         </Link>

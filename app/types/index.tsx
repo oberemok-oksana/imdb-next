@@ -51,7 +51,7 @@ export type FoundByIdType = {
   budget: number;
   genres: Genre[];
   homepage: string;
-  id: number | string;
+  id: string;
   imdb_id: string;
   original_language: string;
   original_title: string;
@@ -85,6 +85,9 @@ export type ListMovieType = {
   releaseDate: string;
   runtime: number;
   imageUrl: string;
+  posterUrl: string;
   voteAverage: number;
   imdbId: number | string;
+  omdbId: string;
+  id: string;
 };
