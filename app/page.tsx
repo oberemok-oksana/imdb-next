@@ -1,7 +1,7 @@
 import Slideshow from "./components/Slider/Slider";
 import SmallMovieCard from "./components/smallMovieCard/SmallMovieCard";
-import styles from "./page.module.css";
 import { MovieType } from "./types";
+import "./globals.css";
 
 const getPopularSeries = async (): Promise<MovieType[]> => {
   const key =
@@ -27,15 +27,15 @@ export default async function Home() {
   const data = await getPopularSeries();
   const filteredWithOverviewData = data.filter((movie) => movie.overview);
 
-  const firstFourMovies = filteredWithOverviewData.slice(0, 4);
+  const firstMovies = filteredWithOverviewData.slice(0, 3);
 
   return (
-    <main className={styles.main}>
+    <main className="mx-auto w-[750px]">
       <h1>Popular today!</h1>
-      <div className={styles.wrapper}>
+      <div className="flex gap-11">
         <Slideshow data={data} />
-        <ul className={styles.list}>
-          {firstFourMovies.map((item) => (
+        <ul className="list-none flex flex-col gap-3">
+          {firstMovies.map((item) => (
             <li key={item.id}>
               <SmallMovieCard movie={item} />
             </li>

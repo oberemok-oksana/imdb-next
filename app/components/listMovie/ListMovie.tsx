@@ -1,7 +1,6 @@
 import { ListMovieType } from "@/app/types";
-import styles from "./ListMovie.module.css";
 import Image from "next/image";
-import AddToFavouriteMovies from "../addToFavouriteMovies/AddToFavouriteMovies";
+import AddToFavouriteMoviesButton from "../addToFavouriteMoviesButton/AddToFavouriteMoviesButton";
 
 type ListMovieProps = {
   movie: ListMovieType;
@@ -13,35 +12,39 @@ const ListMovie = ({ movie }: ListMovieProps) => {
     : "/images/poster_default.jpg";
 
   return (
-    <div className={styles.card}>
-      <h3 className={styles.title}>{movie.name}</h3>
-      <div className={styles.wrapper}>
+    <div className="px-3 py-5 border-2 border-slate-400">
+      <h3 className="text-xl mx-0 my-3 text-slate-300">{movie.name}</h3>
+      <div className="flex">
         <div>
-          <div className={styles.description}>
+          <div className="flex gap-4">
             <Image src={src} alt={movie.name} width="200" height="210" />
 
             <div>
-              <p>{movie.description}</p>
+              <p className="mb-4  text-slate-300">{movie.description}</p>
               <div>
                 Genres:
                 {movie.genres.map((genre) => (
-                  <span className={styles.genres} key={genre}>
+                  <span className="text-red-700 font-semibold " key={genre}>
                     #{genre}
                   </span>
                 ))}
               </div>
               <div>
                 Runtime:{" "}
-                <span className={styles.bold}> {movie.runtime} minutes</span>
+                <span className="font-semibold  text-slate-300">
+                  {movie.runtime} minutes
+                </span>
               </div>
               <div>
                 Vote average:
-                <span className={styles.bold}> {movie.voteAverage}</span>{" "}
+                <span className="font-semibold  text-slate-300">
+                  {" "}
+                  {movie.voteAverage}
+                </span>{" "}
               </div>
-              <div className={styles.buttons}>
-                {/* <button className={styles.btn}>&#10084;</button> */}
-                <AddToFavouriteMovies id={movie.omdbId} />
-                <button className={styles.btn}>
+              <div className="flex items-center gap-5 mt-3">
+                <AddToFavouriteMoviesButton id={movie.omdbId} />
+                <button className="w-10 h-10 cursor-pointer bg-transparent  text-slate-300 rounded hover:bg-slate-500 hover:transition active:bg-slate-600 active:transition">
                   <Image
                     src="/images/icons8-delete-40.png"
                     alt="delete button"

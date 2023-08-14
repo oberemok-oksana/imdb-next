@@ -29,8 +29,8 @@ const FoundMovies = async ({ searchParams }: FoundMoviesPropsType) => {
 
   return (
     <div>
-      <h1>Here what I've found:</h1>
-      <ol>
+      <h1 className="text-slate-400 text-2xl">Here what I've found:</h1>
+      <ol className="pl-0 flex flex-col gap-3 my-4">
         {movies?.results?.map((movie: MovieType) => (
           <li key={movie.id}>
             <Link href="/"></Link>

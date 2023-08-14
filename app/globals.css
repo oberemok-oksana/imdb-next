@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 
 * {
   box-sizing: border-box;
   padding: 0;
@@ -37,7 +41,7 @@ a {
   width: 250px;
   margin-top: 15px;
   /* margin: 15px auto; */
-}
+/* }
 
 .input {
   padding: 13px;
@@ -80,3 +84,8 @@ a {
 .invalid {
   border: 2px solid red;
 }
+
+.list {
+  padding: 0;
+  list-style-type: none;
+} */

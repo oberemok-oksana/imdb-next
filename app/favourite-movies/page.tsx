@@ -7,8 +7,8 @@ const FavouriteMovies = async () => {
 
   return (
     <div>
-      <h1>Here your favourite movies</h1>
-      <ul>
+      <h1 className="text-slate-400 text-2xl">Here your favourite movies</h1>
+      <ul className="pl-0 flex flex-col gap-3 my-4">
         {data.map((movie) => (
           <li key={movie.id}>
             {movie.name}

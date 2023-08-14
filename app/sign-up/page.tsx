@@ -36,10 +36,10 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="font-bold text-3xl text-slate-400">Sign Up</h1>
       <form
-        className="form"
+        className="  flex flex-col gap-4 w-80 mt-4 border-2 border-slate-400 py-6 px-6 rounded bg-slate-600"
         onSubmit={handleSubmit(async (data) => {
           handleSignUp(data.email, data.password)
             .then(() => {
@@ -52,36 +52,36 @@ const SignUp = () => {
         })}
       >
         <input
-          className="input"
+          className="p-2 rounded bg-slate-400 placeholder:text-slate-600"
           placeholder="First name"
           {...register("firstName", {
             required: "This field is required",
             minLength: { value: 2, message: "Min length 2" },
           })}
         />
-        <p>{errors.firstName?.message}</p>
+        <p className="text-red-500">{errors.firstName?.message}</p>
         <input
-          className="input"
+          className="p-2 rounded bg-slate-400 placeholder:text-slate-600"
           placeholder="Last name"
           {...register("lastName", {
             required: "This field is required",
             minLength: { value: 2, message: "Min length 2" },
           })}
         />
-        <p>{errors.lastName?.message}</p>
+        <p className="text-red-500">{errors.lastName?.message}</p>
 
         <input
-          className="input"
+          className="p-2 rounded bg-slate-400 placeholder:text-slate-600"
           placeholder="Phone"
           {...register("phone", {
             required: "This field is required",
             minLength: { value: 6, message: "Min length 6" },
           })}
         />
-        <p>{errors.phone?.message}</p>
+        <p className="text-red-500">{errors.phone?.message}</p>
 
         <input
-          className="input"
+          className="p-2 rounded bg-slate-400 placeholder:text-slate-600"
           {...register("email", {
             required: "This field is required",
             pattern: {
@@ -91,28 +91,34 @@ const SignUp = () => {
           })}
           placeholder="Email"
         />
-        <p className="error">{errors.email?.message}</p>
+        <p className="text-red-500">{errors.email?.message}</p>
         <input
-          className="input"
+          className="p-2 rounded bg-slate-400 placeholder:text-slate-600"
           {...register("password", {
             required: "This field is required",
             minLength: { value: 8, message: "Min length is 8" },
           })}
           placeholder="Password"
         />
-        <p className="error">{errors.password?.message}</p>
+        <p className="text-red-500">{errors.password?.message}</p>
 
-        <input className="submit" type="submit" />
+        <input
+          className="p-2 bg-transparent font-semibold cursor-pointer rounded tracking-wide text-slate-400 uppercase border-2 border-slate-400 hover:border-slate-300 hover:transition active:border-slate-200 active:text-slate-300"
+          type="submit"
+        />
       </form>
-      <div className="text">
-        <p>Already have an account?</p>
-        <p>
-          <Link className="link" href="/log-in">
+      <div className="my-3">
+        <p className="text-slate-400">Already have an account?</p>
+        <p className="text-slate-400">
+          <Link
+            className="font-semibold text-slate-500 hover:text-slate-300 hover:transition"
+            href="/log-in"
+          >
             Click here to Log in
           </Link>
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -42,7 +42,7 @@ const properties = {
 
 const Slideshow = ({ data }: SliderPropsType) => {
   return (
-    <div className={styles["slide-container"]}>
+    <div className="w-[610px]">
       <Fade {...properties}>
         {data.map((movie, index) => (
           <div key={index}>
@@ -50,8 +50,10 @@ const Slideshow = ({ data }: SliderPropsType) => {
               style={{ width: "100%" }}
               src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
             />
-            <h2>{movie.title}</h2>
-            <p>{movie.overview}</p>
+            <h2 className="text-slate-300 font-semibold text-2xl py-3">
+              {movie.title}
+            </h2>
+            <p className="text-slate-300">{movie.overview}</p>
           </div>
         ))}
       </Fade>

@@ -24,10 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${chakra.className} bg`}>
+      <body className={`${chakra.className} bg-slate-900 pb-14`}>
         <ToastContainer />
         <Header />
-        <div className="container"> {children}</div>
+        <div className="w-[960px] mx-auto my-4"> {children}</div>
         <Footer />
       </body>
     </html>
