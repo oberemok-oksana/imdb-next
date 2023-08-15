@@ -1,6 +1,8 @@
 import { ListMovieType } from "@/app/types";
 import Image from "next/image";
 import AddToFavouriteMoviesButton from "../addToFavouriteMoviesButton/AddToFavouriteMoviesButton";
+import DeleteFavouriteMovieButton from "../deleteFavouriteMovie/DeleteFavouriteMovieButton";
+import DeleteMovieFromWatchingList from "../deleteMovieFromWatchingList/DeleteMovieFromWatchingList";
 
 type ListMovieProps = {
   movie: ListMovieType;
@@ -11,9 +13,12 @@ const ListMovie = ({ movie }: ListMovieProps) => {
     ? `https://image.tmdb.org/t/p/w500${movie.posterUrl}`
     : "/images/poster_default.jpg";
 
+  console.log(movie.id);
   return (
-    <div className="px-3 py-5 border-2 border-slate-400">
-      <h3 className="text-xl mx-0 my-3 text-slate-300">{movie.name}</h3>
+    <div className="px-3 py-5 border-2 border-slate-400 text-slate-400">
+      <h3 className=" mx-0 mb-4 text-red-800 text-3xl font-bold">
+        {movie.name}
+      </h3>
       <div className="flex">
         <div>
           <div className="flex gap-4">
@@ -42,16 +47,20 @@ const ListMovie = ({ movie }: ListMovieProps) => {
                   {movie.voteAverage}
                 </span>{" "}
               </div>
-              <div className="flex items-center gap-5 mt-3">
+              <div className="flex items-center gap-8 mt-3">
                 <AddToFavouriteMoviesButton id={movie.omdbId} />
-                <button className="w-10 h-10 cursor-pointer bg-transparent  text-slate-300 rounded hover:bg-slate-500 hover:transition active:bg-slate-600 active:transition">
+                <DeleteMovieFromWatchingList id={movie.id} />
+                {/* <button
+                  onClick={() => deleteMovie(movie.id)}
+                  className="w-[82px] h-[50px] flex justify-center items-center cursor-pointer bg-transparent border-2 border-slate-400  text-slate-300 rounded hover:border-slate-500 hover:transition active:border-slate-600 active:transition"
+                >
                   <Image
                     src="/images/icons8-delete-40.png"
                     alt="delete button"
                     width="25"
                     height="25"
                   />
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
