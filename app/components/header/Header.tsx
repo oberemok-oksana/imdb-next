@@ -63,7 +63,7 @@ const Header = () => {
           <li>
             <a
               className="font-bold no-underline  hover:text-slate-500 transition active:text-slate-600 "
-              href="/favourite-movies"
+              href="/favourite-movies-list"
             >
               Favourite Movies
             </a>

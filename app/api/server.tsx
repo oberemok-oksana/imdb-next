@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import watchingList from "@/lib/repositories/watchingList";
+import favouriteList from "@/lib/repositories/favouriteList";
 
 export const findMovieById = async (id: string): Promise<FoundByIdType> => {
   const result = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
@@ -73,28 +74,41 @@ export const addToWatchList = async (id: string) => {
 
 export const addToFavouriteMovies = async (id: string) => {
   "use server";
+  const movie = await findMovieById(id);
 
-  const supabase = createServerComponentClient({ cookies });
-  const prisma = new PrismaClient();
-  const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+  favouriteList.addMovie({
+    name: movie.title,
+    description: movie.overview,
+    genres: movie.genres.map((item) => item.name),
+    voteAverage: movie.vote_average,
+    runtime: movie.runtime,
+    releaseDate: movie.release_date,
+    imageUrl: movie.backdrop_path,
+    posterUrl: movie.poster_path,
+    imdbId: movie.imdb_id,
+  });
 
-  if (userId) {
-    const data = await findMovieById(id);
-    const favMovie = await prisma.favouriteMovies.create({
-      data: {
-        name: data.title,
-        genres: data.genres.map((genre) => genre.name),
-        description: data.overview,
-        releaseDate: data.release_date,
-        runtime: data.runtime,
-        imageUrl: data.backdrop_path,
-        userId: userId,
-        voteAverage: Math.trunc(data.vote_average),
-        imdbId: data.imdb_id,
-        omdbId: data.id.toString(),
-      },
-    });
-  }
+  // const supabase = createServerComponentClient({ cookies });
+  // const prisma = new PrismaClient();
+  // const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+
+  // if (userId) {
+  //   const data = await findMovieById(id);
+  //   const favMovie = await prisma.favouriteMovies.create({
+  //     data: {
+  //       name: data.title,
+  //       genres: data.genres.map((genre) => genre.name),
+  //       description: data.overview,
+  //       releaseDate: data.release_date,
+  //       runtime: data.runtime,
+  //       imageUrl: data.backdrop_path,
+  //       userId: userId,
+  //       voteAverage: Math.trunc(data.vote_average),
+  //       imdbId: data.imdb_id,
+  //       omdbId: data.id.toString(),
+  //     },
+  //   });
+  // }
 };
 
 export const getWatchingList = async () => {
@@ -121,35 +135,40 @@ export const getWatchingList = async () => {
 
 export const getFavouriteMovies = async () => {
   "use server";
+  return favouriteList.getAll();
+  //   const prisma = new PrismaClient();
+  //   const supabase = createServerComponentClient({ cookies });
+  //   const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+  //   if (!userId) {
+  //     redirect("/");
+  //   }
 
-  const prisma = new PrismaClient();
-  const supabase = createServerComponentClient({ cookies });
-  const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
-  if (!userId) {
-    redirect("/");
-  }
+  //   const favMovies = await prisma.favouriteMovies.findMany({
+  //     where: {
+  //       userId,
+  //     },
+  //   });
+  //   return favMovies;
+  // };
 
-  const favMovies = await prisma.favouriteMovies.findMany({
-    where: {
-      userId,
-    },
-  });
-  return favMovies;
+  // export const deleteMovie = async (id: number) => {
+  //   "use server";
+
+  //   const prisma = new PrismaClient();
+  //   const supabase = createServerComponentClient({ cookies });
+  //   const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+
+  //   await prisma.favouriteMovies.deleteMany({
+  //     where: {
+  //       userId,
+  //       id,
+  //     },
+  //   });
+
+  //   revalidatePath("/favourite-movies");
 };
 
-export const deleteMovie = async (id: number) => {
+export const deleteFromFavouriteList = (id: number) => {
   "use server";
-
-  const prisma = new PrismaClient();
-  const supabase = createServerComponentClient({ cookies });
-  const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
-
-  await prisma.favouriteMovies.deleteMany({
-    where: {
-      userId,
-      id,
-    },
-  });
-
-  revalidatePath("/favourite-movies");
+  favouriteList.deleteMovie(id);
 };

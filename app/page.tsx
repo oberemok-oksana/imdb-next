@@ -2,6 +2,7 @@ import Slideshow from "./components/Slider/Slider";
 import SmallMovieCard from "./components/smallMovieCard/SmallMovieCard";
 import { MovieType } from "./types";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
 
 const getPopularSeries = async (): Promise<MovieType[]> => {
   const key =
@@ -30,18 +31,21 @@ export default async function Home() {
   const firstMovies = filteredWithOverviewData.slice(0, 3);
 
   return (
-    <main className="mx-auto w-[750px]">
-      <h1>Popular today!</h1>
-      <div className="flex gap-11">
-        <Slideshow data={data} />
-        <ul className="list-none flex flex-col gap-3">
-          {firstMovies.map((item) => (
-            <li key={item.id}>
-              <SmallMovieCard movie={item} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </main>
+    <>
+      <ToastContainer />
+      <main className="mx-auto w-[750px]">
+        <h1>Popular today!</h1>
+        <div className="flex gap-11">
+          <Slideshow data={data} />
+          <ul className="list-none flex flex-col gap-3">
+            {firstMovies.map((item) => (
+              <li key={item.id}>
+                <SmallMovieCard movie={item} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </main>
+    </>
   );
 }

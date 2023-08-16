@@ -48,7 +48,7 @@ const ListMovie = ({ movie }: ListMovieProps) => {
                 </span>{" "}
               </div>
               <div className="flex items-center gap-8 mt-3">
-                <AddToFavouriteMoviesButton id={movie.omdbId} />
+                <AddToFavouriteMoviesButton id={movie.imdbId.toString()} />
                 <DeleteMovieFromWatchingList id={movie.id} />
                 {/* <button
                   onClick={() => deleteMovie(movie.id)}

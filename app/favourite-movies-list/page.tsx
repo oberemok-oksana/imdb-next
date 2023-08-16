@@ -1,18 +1,18 @@
 import { getFavouriteMovies } from "../api/server";
 import DeleteFavouriteMovieButton from "../components/deleteFavouriteMovie/DeleteFavouriteMovieButton";
+import FavouriteMovie from "./FavouriteMovie";
 
-const FavouriteMovies = async () => {
+const FavouriteMoviesList = async () => {
   const data = await getFavouriteMovies();
   console.log(data);
 
   return (
     <div>
       <h1 className="text-slate-400 text-2xl">Here your favourite movies</h1>
-      <ul className="pl-0 flex flex-col gap-3 my-4">
+      <ul className="pl-0 grid grid-cols-2 gap-3 my-4">
         {data.map((movie) => (
           <li key={movie.id}>
-            {movie.name}
-            <DeleteFavouriteMovieButton id={movie.id} />
+            <FavouriteMovie movie={movie} />
           </li>
         ))}
       </ul>
@@ -20,4 +20,4 @@ const FavouriteMovies = async () => {
   );
 };
 
-export default FavouriteMovies;
+export default FavouriteMoviesList;

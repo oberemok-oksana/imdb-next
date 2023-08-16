@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteFromWatchingList } from "@/app/api/server";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -14,6 +15,7 @@ const DeleteMovieFromWatchingList = ({
   const router = useRouter();
   const deleteMovie = async (id: string) => {
     await deleteFromWatchingList(parseInt(id));
+
     router.refresh();
   };
 
