@@ -4,11 +4,14 @@ import FavouriteMovie from "./FavouriteMovie";
 
 const FavouriteMoviesList = async () => {
   const data = await getFavouriteMovies();
-  console.log(data);
 
   return (
     <div>
-      <h1 className="text-slate-400 text-2xl">Here your favourite movies</h1>
+      <h1 className="text-slate-400 text-2xl">
+        {data.length
+          ? "Your favourite movie are:"
+          : "You haven't added any favourite movie here yet"}
+      </h1>
       <ul className="pl-0 grid grid-cols-2 gap-3 my-4">
         {data.map((movie) => (
           <li key={movie.id}>

@@ -1,7 +1,7 @@
 "use client";
 
 import { addToFavouriteMovies } from "@/app/api/server";
-import { notify } from "@/app/lib/notify";
+import { notify, notifyError } from "@/app/lib/notify";
 import Image from "next/image";
 
 type AddToFavouriteMoviesProps = {
@@ -9,9 +9,15 @@ type AddToFavouriteMoviesProps = {
 };
 
 const AddToFavouriteMoviesButton = ({ id }: AddToFavouriteMoviesProps) => {
-  const handleAddingToFavourite = (id: string) => {
-    addToFavouriteMovies(id);
-    notify("So easy!");
+  const handleAddingToFavourite = async (id: string) => {
+    try {
+      await addToFavouriteMovies(id);
+      notify("So easy!");
+    } catch (e) {
+      if (e instanceof Error) {
+        notifyError(`${e.message}`);
+      }
+    }
   };
 
   return (

@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import watchingList from "@/lib/repositories/watchingList";
 import favouriteList from "@/lib/repositories/favouriteList";
+import { SqliteError } from "better-sqlite3";
 
 export const findMovieById = async (id: string): Promise<FoundByIdType> => {
   const result = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
@@ -34,17 +35,29 @@ export const deleteFromWatchingList = async (id: number) => {
 export const addToWatchList = async (id: string) => {
   "use server";
   const movie = await findMovieById(id);
-  watchingList.addMovie({
-    description: movie.overview,
-    name: movie.title,
-    releaseDate: movie.release_date,
-    genres: movie.genres.map((item) => item.name),
-    imageUrl: movie.backdrop_path,
-    posterUrl: movie.poster_path,
-    runtime: movie.runtime,
-    voteAverage: movie.vote_average,
-    imdbId: movie.imdb_id,
-  });
+  try {
+    watchingList.addMovie({
+      description: movie.overview,
+      name: movie.title,
+      releaseDate: movie.release_date,
+      genres: movie.genres.map((item) => item.name),
+      imageUrl: movie.backdrop_path,
+      posterUrl: movie.poster_path,
+      runtime: movie.runtime,
+      voteAverage: movie.vote_average,
+      imdbId: movie.imdb_id,
+    });
+  } catch (e) {
+    if (e instanceof SqliteError) {
+      if (e.code === "SQLITE_CONSTRAINT_UNIQUE") {
+        throw new Error("Already exists");
+      }
+    }
+
+    if (e instanceof Error) {
+      throw new Error("Something went wrong!");
+    }
+  }
 
   // const supabase = createServerComponentClient({ cookies });
 
@@ -76,17 +89,29 @@ export const addToFavouriteMovies = async (id: string) => {
   "use server";
   const movie = await findMovieById(id);
 
-  favouriteList.addMovie({
-    name: movie.title,
-    description: movie.overview,
-    genres: movie.genres.map((item) => item.name),
-    voteAverage: movie.vote_average,
-    runtime: movie.runtime,
-    releaseDate: movie.release_date,
-    imageUrl: movie.backdrop_path,
-    posterUrl: movie.poster_path,
-    imdbId: movie.imdb_id,
-  });
+  try {
+    favouriteList.addMovie({
+      name: movie.title,
+      description: movie.overview,
+      genres: movie.genres.map((item) => item.name),
+      voteAverage: movie.vote_average,
+      runtime: movie.runtime,
+      releaseDate: movie.release_date,
+      imageUrl: movie.backdrop_path,
+      posterUrl: movie.poster_path,
+      imdbId: movie.imdb_id,
+    });
+  } catch (e) {
+    if (e instanceof SqliteError) {
+      if (e.code === "SQLITE_CONSTRAINT_UNIQUE") {
+        throw new Error("Already exists!");
+      }
+    }
+
+    if (e instanceof Error) {
+      throw new Error("Something went wrong!");
+    }
+  }
 
   // const supabase = createServerComponentClient({ cookies });
   // const prisma = new PrismaClient();

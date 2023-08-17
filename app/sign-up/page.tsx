@@ -18,7 +18,6 @@ const SignUp = () => {
       password: "",
       firstName: "",
       lastName: "",
-      phone: "",
     },
   });
   const router = useRouter();
@@ -69,16 +68,6 @@ const SignUp = () => {
           })}
         />
         <p className="text-red-500">{errors.lastName?.message}</p>
-
-        <input
-          className="p-2 rounded bg-slate-400 placeholder:text-slate-600"
-          placeholder="Phone"
-          {...register("phone", {
-            required: "This field is required",
-            minLength: { value: 6, message: "Min length 6" },
-          })}
-        />
-        <p className="text-red-500">{errors.phone?.message}</p>
 
         <input
           className="p-2 rounded bg-slate-400 placeholder:text-slate-600"

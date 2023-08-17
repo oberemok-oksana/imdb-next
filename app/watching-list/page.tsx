@@ -7,7 +7,11 @@ const WatchingList = async () => {
 
   return (
     <div>
-      <h1>Movies you want to watch:</h1>
+      <h1 className="text-slate-400">
+        {data.length
+          ? "Movies you want to watch:"
+          : "You haven't added any movie here yet"}
+      </h1>
       <ul className="flex flex-col gap-5">
         {data.map((movie) => (
           <li key={movie.id}>

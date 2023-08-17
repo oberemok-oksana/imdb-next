@@ -1,6 +1,6 @@
 "use client";
 
-import { notify } from "@/app/lib/notify";
+import { notify, notifyError } from "@/app/lib/notify";
 import { addToWatchList } from "../../api/server";
 
 type AddToWatchListProps = {
@@ -8,9 +8,15 @@ type AddToWatchListProps = {
 };
 
 const AddToWatchListButton = ({ id }: AddToWatchListProps) => {
-  const handleAddingToWatchingList = (id: string) => {
-    addToWatchList(id);
-    notify("So easy!");
+  const handleAddingToWatchingList = async (id: string) => {
+    try {
+      await addToWatchList(id);
+      notify("So easy!");
+    } catch (e) {
+      if (e instanceof Error) {
+        notifyError(`${e.message}`);
+      }
+    }
   };
 
   return (
