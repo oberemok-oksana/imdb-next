@@ -13,10 +13,6 @@ const Header = () => {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   supabase.auth.getUser().then((res) => setIsLoggedIn(!!res.data.user?.role));
-  // });
-
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
@@ -72,7 +68,7 @@ const Header = () => {
             {!isLoggedIn && (
               <a
                 className="font-bold no-underline  hover:text-slate-500 transition active:text-slate-600 "
-                href="/log-in"
+                href="/login"
               >
                 Log in
               </a>

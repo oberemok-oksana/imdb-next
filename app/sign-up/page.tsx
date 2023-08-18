@@ -4,7 +4,7 @@ import Link from "next/link";
 // import { useRouter } from "next/navigation";
 // import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 // import { Database } from "@/lib/database.types";
-import Form from "../components/Form";
+import Form from "../components/signupForm/Form";
 import { auth } from "@/auth/lucia";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
