@@ -2,9 +2,9 @@ import { ListMovieType } from "@/app/types";
 import db from "../db";
 
 class FavouriteList {
-  getAll(): ListMovieType[] {
-    const data = db.prepare("SELECT * FROM favourite_list");
-    return data.all().map(
+  getAll(userId: string): ListMovieType[] {
+    const data = db.prepare("SELECT * FROM favourite_list WHERE user_id=?");
+    return data.all(userId).map(
       (item) =>
         ({
           // @ts-expect-error
@@ -15,9 +15,9 @@ class FavouriteList {
     );
   }
 
-  addMovie(data: Omit<ListMovieType, "id" | "omdbId">) {
+  addMovie(data: Omit<ListMovieType, "id" | "omdbId">, userId: string) {
     const addStatement = db.prepare(
-      "INSERT INTO favourite_list(name,description,genres,runtime,releaseDate,voteAverage,imageUrl,posterUrl,imdbId) VALUES(@name,@description,@genres,@runtime,@releaseDate,@voteAverage,@imageUrl,@posterUrl,@imdbId)"
+      "INSERT INTO favourite_list(name,description,genres,runtime,releaseDate,voteAverage,imageUrl,posterUrl,imdbId,user_id) VALUES(@name,@description,@genres,@runtime,@releaseDate,@voteAverage,@imageUrl,@posterUrl,@imdbId,@userId)"
     );
 
     const {
@@ -42,12 +42,15 @@ class FavouriteList {
       imageUrl,
       posterUrl,
       imdbId,
+      userId,
     });
   }
 
-  deleteMovie(id: number) {
-    const deleteStatement = db.prepare("DELETE FROM favourite_list WHERE id=?");
-    deleteStatement.run(id);
+  deleteMovie(id: number, userId: string) {
+    const deleteStatement = db.prepare(
+      "DELETE FROM favourite_list WHERE id=? AND user_id=?"
+    );
+    deleteStatement.run(id, userId);
   }
 }
 

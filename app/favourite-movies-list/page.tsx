@@ -9,7 +9,7 @@ const FavouriteMoviesList = async () => {
     <div>
       <h1 className="text-slate-400 text-2xl">
         {data.length
-          ? "Your favourite movie are:"
+          ? "Your favourite movies are:"
           : "You haven't added any favourite movie here yet"}
       </h1>
       <ul className="pl-0 grid grid-cols-2 gap-3 my-4">

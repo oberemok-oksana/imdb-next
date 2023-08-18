@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import watchingList from "@/lib/repositories/watchingList";
 import favouriteList from "@/lib/repositories/favouriteList";
 import { SqliteError } from "better-sqlite3";
+import { auth } from "@/auth/lucia";
 
 export const findMovieById = async (id: string): Promise<FoundByIdType> => {
   const result = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
@@ -29,24 +30,34 @@ export const findMovieById = async (id: string): Promise<FoundByIdType> => {
 
 export const deleteFromWatchingList = async (id: number) => {
   "use server";
-  watchingList.deleteMovie(id);
+  const userId = await getUserId();
+  if (userId) {
+    watchingList.deleteMovie(id, userId);
+  }
 };
 
 export const addToWatchList = async (id: string) => {
   "use server";
   const movie = await findMovieById(id);
+  const userId = await getUserId();
+  if (!userId) {
+    return;
+  }
   try {
-    watchingList.addMovie({
-      description: movie.overview,
-      name: movie.title,
-      releaseDate: movie.release_date,
-      genres: movie.genres.map((item) => item.name),
-      imageUrl: movie.backdrop_path,
-      posterUrl: movie.poster_path,
-      runtime: movie.runtime,
-      voteAverage: movie.vote_average,
-      imdbId: movie.imdb_id,
-    });
+    watchingList.addMovie(
+      {
+        description: movie.overview,
+        name: movie.title,
+        releaseDate: movie.release_date,
+        genres: movie.genres.map((item) => item.name),
+        imageUrl: movie.backdrop_path,
+        posterUrl: movie.poster_path,
+        runtime: movie.runtime,
+        voteAverage: movie.vote_average,
+        imdbId: movie.imdb_id,
+      },
+      userId
+    );
   } catch (e) {
     if (e instanceof SqliteError) {
       if (e.code === "SQLITE_CONSTRAINT_UNIQUE") {
@@ -58,49 +69,31 @@ export const addToWatchList = async (id: string) => {
       throw new Error("Something went wrong!");
     }
   }
-
-  // const supabase = createServerComponentClient({ cookies });
-
-  // const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
-
-  // const prisma = new PrismaClient();
-
-  // if (userId) {
-  //   const data = await findMovieById(id);
-  //   const movie = await prisma.watchingList.create({
-  //     data: {
-  //       name: data.title,
-  //       genres: data.genres.map((genre) => genre.name),
-  //       description: data.overview,
-  //       releaseDate: data.release_date,
-  //       runtime: data.runtime,
-  //       imageUrl: data.backdrop_path,
-  //       posterUrl: data.poster_path,
-  //       userId: userId,
-  //       voteAverage: Math.trunc(data.vote_average),
-  //       imdbId: data.imdb_id,
-  //       omdbId: data.id.toString(),
-  //     },
-  //   });
-  // }
 };
 
 export const addToFavouriteMovies = async (id: string) => {
   "use server";
   const movie = await findMovieById(id);
+  const userId = await getUserId();
+  if (!userId) {
+    return;
+  }
 
   try {
-    favouriteList.addMovie({
-      name: movie.title,
-      description: movie.overview,
-      genres: movie.genres.map((item) => item.name),
-      voteAverage: movie.vote_average,
-      runtime: movie.runtime,
-      releaseDate: movie.release_date,
-      imageUrl: movie.backdrop_path,
-      posterUrl: movie.poster_path,
-      imdbId: movie.imdb_id,
-    });
+    favouriteList.addMovie(
+      {
+        name: movie.title,
+        description: movie.overview,
+        genres: movie.genres.map((item) => item.name),
+        voteAverage: movie.vote_average,
+        runtime: movie.runtime,
+        releaseDate: movie.release_date,
+        imageUrl: movie.backdrop_path,
+        posterUrl: movie.poster_path,
+        imdbId: movie.imdb_id,
+      },
+      userId
+    );
   } catch (e) {
     if (e instanceof SqliteError) {
       if (e.code === "SQLITE_CONSTRAINT_UNIQUE") {
@@ -112,88 +105,47 @@ export const addToFavouriteMovies = async (id: string) => {
       throw new Error("Something went wrong!");
     }
   }
+};
 
-  // const supabase = createServerComponentClient({ cookies });
-  // const prisma = new PrismaClient();
-  // const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
+const getUserId = async () => {
+  const authRequest = auth.handleRequest({
+    request: null,
+    cookies,
+  });
+  const session = await authRequest.validate();
 
-  // if (userId) {
-  //   const data = await findMovieById(id);
-  //   const favMovie = await prisma.favouriteMovies.create({
-  //     data: {
-  //       name: data.title,
-  //       genres: data.genres.map((genre) => genre.name),
-  //       description: data.overview,
-  //       releaseDate: data.release_date,
-  //       runtime: data.runtime,
-  //       imageUrl: data.backdrop_path,
-  //       userId: userId,
-  //       voteAverage: Math.trunc(data.vote_average),
-  //       imdbId: data.imdb_id,
-  //       omdbId: data.id.toString(),
-  //     },
-  //   });
-  // }
+  if (!session) {
+    return null;
+  }
+  return session.user.userId;
 };
 
 export const getWatchingList = async () => {
   "use server";
 
-  return watchingList.getAll();
+  const userId = await getUserId();
+  console.log(userId);
+  if (userId) {
+    return watchingList.getAll(userId);
+  }
 
-  // const prisma = new PrismaClient();
-  // const supabase = createServerComponentClient({ cookies });
-  // const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
-
-  // if (!userId) {
-  //   redirect("/");
-  // }
-
-  // const watchingList = await prisma.watchingList.findMany({
-  //   where: {
-  //     userId,
-  //   },
-  // });
-
-  // return watchingList;
+  return [];
 };
 
 export const getFavouriteMovies = async () => {
   "use server";
-  return favouriteList.getAll();
-  //   const prisma = new PrismaClient();
-  //   const supabase = createServerComponentClient({ cookies });
-  //   const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
-  //   if (!userId) {
-  //     redirect("/");
-  //   }
-
-  //   const favMovies = await prisma.favouriteMovies.findMany({
-  //     where: {
-  //       userId,
-  //     },
-  //   });
-  //   return favMovies;
-  // };
-
-  // export const deleteMovie = async (id: number) => {
-  //   "use server";
-
-  //   const prisma = new PrismaClient();
-  //   const supabase = createServerComponentClient({ cookies });
-  //   const userId = await supabase.auth.getUser().then((res) => res.data.user?.id);
-
-  //   await prisma.favouriteMovies.deleteMany({
-  //     where: {
-  //       userId,
-  //       id,
-  //     },
-  //   });
-
-  //   revalidatePath("/favourite-movies");
+  const userId = await getUserId();
+  if (userId) {
+    return favouriteList.getAll(userId);
+  }
 };
 
-export const deleteFromFavouriteList = (id: number) => {
+export const deleteFromFavouriteList = async (id: number) => {
   "use server";
-  favouriteList.deleteMovie(id);
+  const userId = await getUserId();
+  if (!userId) {
+    return;
+  }
+
+  favouriteList.deleteMovie(id, userId);
 };
