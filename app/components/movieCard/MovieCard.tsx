@@ -22,7 +22,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             alt={movie.name || movie.title}
             width="80"
             height="90"
-            className="w-auto h-auto"
+            className="w-32 h-40"
           />
         </Link>
         <div>
