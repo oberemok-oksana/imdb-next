@@ -7,7 +7,7 @@ const TopMovies = async () => {
 
   return (
     <div className="h-screen">
-      <h1 className="text-7xl font-extrabold text-center relative text-slate-400 ">
+      <h1 className="text-4xl font-extrabold text-center relative text-slate-400 sm:text-7xl">
         Top 20
       </h1>
       <ol className="flex flex-col gap-5 items-center justify-start">

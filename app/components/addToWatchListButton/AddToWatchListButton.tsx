@@ -21,10 +21,10 @@ const AddToWatchListButton = ({ id }: AddToWatchListProps) => {
 
   return (
     <button
-      className="font-semibold text-sm bg-transparent px-4 py-2 rounded cursor-pointer border-2 border-slate-400 text-slate-400 hover:text-slate-600 hover:border-2 hover:border-slate-600 hover:transition active:scale-y-105 active:text-slate-200 active:border-slate-200 active:transition"
+      className="font-semibold text-sm bg-transparent px-4 py-2 rounded cursor-pointer border-2 border-slate-400 text-slate-400 hover:text-slate-600 hover:border-2 hover:border-slate-600 hover:transition active:scale-y-105 active:text-slate-200 active:border-slate-200 active:transition sm:text-lg"
       onClick={() => handleAddingToWatchingList(id)}
     >
-      Add to Watch List
+      {/* Add to Watch List */}+
     </button>
   );
 };

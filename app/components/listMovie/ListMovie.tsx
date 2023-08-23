@@ -15,53 +15,46 @@ const ListMovie = ({ movie }: ListMovieProps) => {
 
   console.log(movie.id);
   return (
-    <div className="px-3 py-5 border-2 border-slate-400 text-slate-400">
-      <h3 className=" mx-0 mb-4 text-red-800 text-3xl font-bold">
+    <div className="px-3 py-5 border-2 border-slate-400 text-slate-400 ">
+      <h3 className=" mx-0 mb-4 text-red-800 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
         {movie.name}
       </h3>
-      <div className="flex">
-        <div>
-          <div className="flex gap-4">
-            <Image src={src} alt={movie.name} width="200" height="210" />
+      <div className="flex  flex-col sm:flex-row">
+        <div className="flex gap-4 flex-col sm:flex-row">
+          <Image
+            src={src}
+            alt={movie.name}
+            width="200"
+            height="210"
+            className="w-full h-80 sm:w-52 sm:h-auto md:w-60 md:h-auto"
+          />
 
+          <div>
+            <p className="mb-4  text-slate-300">{movie.description}</p>
             <div>
-              <p className="mb-4  text-slate-300">{movie.description}</p>
-              <div>
-                Genres:
-                {movie.genres.map((genre) => (
-                  <span className="text-red-700 font-semibold " key={genre}>
-                    #{genre}
-                  </span>
-                ))}
-              </div>
-              <div>
-                Runtime:{" "}
-                <span className="font-semibold  text-slate-300">
-                  {movie.runtime} minutes
+              Genres:
+              {movie.genres.map((genre) => (
+                <span className="text-red-700 font-semibold " key={genre}>
+                  #{genre}
                 </span>
-              </div>
-              <div>
-                Vote average:
-                <span className="font-semibold  text-slate-300">
-                  {" "}
-                  {movie.voteAverage}
-                </span>{" "}
-              </div>
-              <div className="flex items-center gap-8 mt-3">
-                <AddToFavouriteMoviesButton id={movie.imdbId.toString()} />
-                <DeleteMovieFromWatchingList id={movie.id} />
-                {/* <button
-                  onClick={() => deleteMovie(movie.id)}
-                  className="w-[82px] h-[50px] flex justify-center items-center cursor-pointer bg-transparent border-2 border-slate-400  text-slate-300 rounded hover:border-slate-500 hover:transition active:border-slate-600 active:transition"
-                >
-                  <Image
-                    src="/images/icons8-delete-40.png"
-                    alt="delete button"
-                    width="25"
-                    height="25"
-                  />
-                </button> */}
-              </div>
+              ))}
+            </div>
+            <div>
+              Runtime:{" "}
+              <span className="font-semibold  text-slate-300">
+                {movie.runtime} minutes
+              </span>
+            </div>
+            <div>
+              Vote average:
+              <span className="font-semibold  text-slate-300">
+                {" "}
+                {movie.voteAverage}
+              </span>{" "}
+            </div>
+            <div className="flex items-center gap-8 mt-3">
+              <AddToFavouriteMoviesButton id={movie.imdbId.toString()} />
+              <DeleteMovieFromWatchingList id={movie.id} />
             </div>
           </div>
         </div>

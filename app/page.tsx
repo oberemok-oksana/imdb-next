@@ -33,9 +33,9 @@ export default async function Home() {
   return (
     <>
       <ToastContainer />
-      <main className="mx-auto w-[750px]">
-        <h1>Popular today!</h1>
-        <div className="flex gap-11">
+      <main className="mx-auto w-[380px] sm:w-[500px] md:w-[750px]">
+        <h1 className="text-slate-400 text-2xl">Popular today!</h1>
+        <div className="flex flex-col gap-11 lg:flex-row">
           <Slideshow data={data} />
           <ul className="list-none flex flex-col gap-3">
             {firstMovies.map((item) => (

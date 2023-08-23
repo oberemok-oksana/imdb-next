@@ -28,7 +28,7 @@ const FoundMovies = async ({ searchParams }: FoundMoviesPropsType) => {
   const movies = await findMoviesByName(search);
 
   return (
-    <div>
+    <div className="f">
       <h1 className="text-slate-400 text-2xl">Here what I've found:</h1>
       <ol className="pl-0 flex flex-col gap-3 my-4">
         {movies?.results?.map((movie: MovieType) => (

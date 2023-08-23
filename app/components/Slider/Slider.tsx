@@ -1,7 +1,6 @@
 "use client";
 import "react-slideshow-image/dist/styles.css";
 import { Fade } from "react-slideshow-image";
-import styles from "./Slider.module.css";
 import { MovieType } from "@/app/types";
 
 type SliderPropsType = {
@@ -12,23 +11,23 @@ const buttonStyle = {
   width: "30px",
   background: "none",
   border: "0px",
-  top: "34%",
+  top: "17%",
 };
 
 const properties = {
   prevArrow: (
-    <button style={{ ...buttonStyle }}>
+    <button className="w-5 bg-transparent border-0 top-[17%]  sm:top-[27%]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
-        fill="rgb(249 226 236 / 80%)"
+        fill="rgb(249 226 236 / 70%)"
       >
         <path d="M242 180.6v-138L0 256l242 213.4V331.2h270V180.6z" />
       </svg>
     </button>
   ),
   nextArrow: (
-    <button style={{ ...buttonStyle }}>
+    <button className="w-5 bg-transparent border-0 top-[17%]  sm:top-[27%]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
@@ -42,7 +41,7 @@ const properties = {
 
 const Slideshow = ({ data }: SliderPropsType) => {
   return (
-    <div className="w-[610px]">
+    <div className="w-[380px] sm:w-[610px]">
       <Fade {...properties}>
         {data.map((movie, index) => (
           <div key={index}>

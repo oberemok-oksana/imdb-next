@@ -1,6 +1,7 @@
 import MovieSearchForm from "../movieSearch/MovieSearchForm";
 import { auth } from "@/auth/lucia";
 import { cookies } from "next/headers";
+import MobileNav from "./MobileNav";
 
 const Header = async () => {
   const authRequest = auth.handleRequest({
@@ -10,16 +11,16 @@ const Header = async () => {
   const session = await authRequest.validate();
 
   return (
-    <header className="flex justify-between items-center px-16 py-8 text-gray-300">
-      <div>
+    <header className="flex justify-between items-center px-3 py-2 text-gray-300 sm:px-16 sm:py-8">
+      <div className="hidden w-16 px-3 lg:block">
         <a href="/">OMDB</a>
       </div>
       <MovieSearchForm />
-      <nav>
-        <ul className="flex list-none gap-10 text-lg">
+      <nav className="px-3">
+        <ul className="hidden list-none gap-3 text-lg sm:gap-10  lg:flex">
           <li>
             <a
-              className="font-bold no-underline hover:text-slate-500 transition active:text-slate-600 "
+              className="font-bold text-sm no-underline hover:text-slate-500 transition active:text-slate-600 sm:text-lg"
               href="/top-20"
             >
               Top 20
@@ -27,7 +28,7 @@ const Header = async () => {
           </li>
           <li>
             <a
-              className="font-bold no-underline  hover:text-slate-500 transition active:text-slate-600 "
+              className="font-bold text-sm no-underline  hover:text-slate-500 transition active:text-slate-600 sm:text-lg"
               href="/watching-list"
             >
               Watching List
@@ -35,7 +36,7 @@ const Header = async () => {
           </li>
           <li>
             <a
-              className="font-bold no-underline  hover:text-slate-500 transition active:text-slate-600 "
+              className="font-bold text-sm no-underline  hover:text-slate-500 transition active:text-slate-600 sm:text-lg"
               href="/favourite-movies-list"
             >
               Favourite Movies
@@ -44,7 +45,7 @@ const Header = async () => {
           {session?.user?.userId ? (
             <li>
               <a
-                className="font-bold no-underline  hover:text-slate-500 transition active:text-slate-600 "
+                className="font-bold text-sm no-underline  hover:text-slate-500 transition active:text-slate-600 sm:text-lg"
                 href="/profile"
               >
                 Profile
@@ -53,7 +54,7 @@ const Header = async () => {
           ) : (
             <li>
               <a
-                className="font-bold no-underline  hover:text-slate-500 transition active:text-slate-600 "
+                className="font-bold text-sm no-underline  hover:text-slate-500 transition active:text-slate-600 sm:text-lg"
                 href="/login"
               >
                 Log in
@@ -62,6 +63,7 @@ const Header = async () => {
           )}
         </ul>
       </nav>
+      <MobileNav />
     </header>
   );
 };

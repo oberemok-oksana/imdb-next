@@ -13,14 +13,17 @@ const Movie = async ({ params }: { params: { id: string } }) => {
     : "/images/poster_default.jpg";
 
   return (
-    <div className="w-[900px] mx-auto mb-14">
+    <div className="w-[380px] mx-auto mb-14 sm:w-[580] md:w-[700px] lg:w-[900px]">
       <div className="relative ">
-        <h1 className="font-bold text-red-700 text-5xl "> {data.title}</h1>
+        <h1 className="font-bold text-red-700 text-3xl sm:text-5xl">
+          {" "}
+          {data.title}
+        </h1>
         <q className="text-slate-400 italic">{data.tagline}</q>
       </div>
-      <div className="flex gap-6">
+      <div className="flex flex-col gap-6 md:flex-row">
         <Image
-          className="mt-4 rounded"
+          className="mt-4 rounded w-full h-56  md:w-[500px] md:h-[350px]"
           src={src}
           alt={data.title}
           width="500"
@@ -38,22 +41,24 @@ const Movie = async ({ params }: { params: { id: string } }) => {
             <h2 className="flex items-center gap-3 text-slate-400">
               Release date{" "}
               <Image
-                src="/images/icons8-date-50.png"
+                src="/images/icons8-calendar-40-white.png"
                 alt="calendar"
-                width="25"
-                height="25"
+                width="20"
+                height="20"
+                className="w-5 h-5 sm:w-8 sm:h-8"
               />
             </h2>
             <span className="text-slate-300">{data.release_date}</span>
           </div>
           <div>
             <h2 className="flex items-center gap-3 text-slate-400">
-              Runtime{" "}
+              <span className="text-sm text-slate-400 sm:text-lg">Runtime</span>
               <Image
-                src="/images/icons8-clock-40.png"
+                src="/images/icons8-clock-40-white.png"
                 alt="clock"
-                width="25"
-                height="25"
+                width="20"
+                height="20"
+                className="w-5 h-5 sm:w-8 sm:h-8"
               />
             </h2>
             <span className="text-slate-300">{data.runtime} minutes</span>
@@ -62,10 +67,11 @@ const Movie = async ({ params }: { params: { id: string } }) => {
             <h2 className="flex items-center gap-3 text-slate-400">
               Vote average{" "}
               <Image
-                src="/images/icons8-pixel-star-40.png"
+                src="/images/icons8-star-40-white.png"
                 alt="rating star"
-                width="25"
-                height="25"
+                width="20"
+                height="20"
+                className="w-5 h-5 sm:w-8 sm:h-8"
               />
             </h2>
             <span className="text-slate-400">

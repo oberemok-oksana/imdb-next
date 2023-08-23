@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { getWatchingList } from "../api/server";
 import ListMovie from "../components/listMovie/ListMovie";
 
@@ -7,7 +6,7 @@ const WatchingList = async () => {
 
   return (
     <div>
-      <h1 className="text-slate-400">
+      <h1 className="text-slate-400 md:text-lg">
         {data.length
           ? "Movies you want to watch:"
           : "You haven't added any movie here yet"}
