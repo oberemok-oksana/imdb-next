@@ -6,7 +6,7 @@ const WatchingList = async () => {
 
   return (
     <div>
-      <h1 className="text-slate-400 md:text-lg">
+      <h1 className="text-slate-400 pl-5 text-2xl sm:pl-7">
         {data.length
           ? "Movies you want to watch:"
           : "You haven't added any movie here yet"}

@@ -21,8 +21,8 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             src={src}
             alt={movie.name || movie.title}
             width="100"
-            height="90"
-            className=" block w-32 h-32 sm:w-44 sm:h-40"
+            height="110"
+            className=" block w-28 h-36 sm:w-36 sm:h-44"
           />
         </Link>
         <div>
