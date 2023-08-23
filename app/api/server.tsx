@@ -1,11 +1,7 @@
 "use server";
 
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FoundByIdType } from "../types";
-import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import watchingList from "@/lib/repositories/watchingList";
 import favouriteList from "@/lib/repositories/favouriteList";
 import { SqliteError } from "better-sqlite3";
@@ -18,6 +14,7 @@ export const findMovieById = async (id: string): Promise<FoundByIdType> => {
       Authorization:
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZWZlNzUyN2ZmM2EzZmFjOGE2MTAzMzAxMzU3MjE2OSIsInN1YiI6IjYwOWU2OGI0ODA3Mjk4MDAyOWE1MGI5NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Xbowz5LfSHTk6wVl3Mk8ixotglAi_tNU9rAzz0qk3gk",
     },
+    cache: "no-store",
   });
 
   if (!result.ok) {
@@ -124,7 +121,7 @@ export const getWatchingList = async () => {
   "use server";
 
   const userId = await getUserId();
-  console.log(userId);
+
   if (userId) {
     return watchingList.getAll(userId);
   }

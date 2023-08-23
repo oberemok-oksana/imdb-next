@@ -28,6 +28,7 @@ const LogoutForm = ({ action }: { action: string }) => {
           method: "POST",
           body: formData,
           redirect: "manual",
+          cache: "no-store",
         });
 
         if (response.status === 0) {

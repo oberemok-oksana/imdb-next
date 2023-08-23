@@ -9,6 +9,7 @@ export const getTopMovies = async (): Promise<MovieType[]> => {
       Authorization: `Bearer ${key}`,
       Accept: "application/json",
     },
+    cache: "no-store",
   });
 
   if (!result.ok) {
